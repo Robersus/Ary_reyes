@@ -7,7 +7,7 @@
 
 <meta name="description" content="Estudio de belleza y bienestar de Ary Reyes en Puerto Vallarta: uñas esculpidas y semipermanente, pedicura, masajes relajantes y reductivos, extensiones de pestañas, mascarillas faciales y depilación con cera. Agenda tu cita por WhatsApp.">
 <meta name="author" content="Ary Reyes">
-<meta name="theme-color" content="#fffcfd">
+<meta name="theme-color" content="#FBF5F5">
 <link rel="canonical" href="https://robersus.github.io/Ary_reyes/">
 
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -37,30 +37,31 @@
 <script>document.documentElement.classList.add('js');</script>
 <style>
   /* ============================================================
-     SISTEMA DE COLOR — "Estudio luminoso"
-     Rosa + morado con un toque de vino sobre superficies claras.
-     Toda la interfaz se construye con estos tokens; no se usan
-     colores sueltos fuera de :root salvo los rgba() derivados.
+     SISTEMA DE COLOR
+     Superficies claras (lienzo / nube), tinta ciruela, morado como
+     color de marca y rosa cuarzo como atmósfera. Reglas del sistema:
+
+     · --carmin es el color de "agendar": botón de WhatsApp, CTA flotante
+       y teléfono. En ningún otro sitio, para que siga leyéndose como la
+       acción principal.
+     · --ciruela es la voz de la marca en texto: eyebrows, hover de
+       títulos, enlaces. Contrasta 10:1 sobre --lienzo.
+     · --rosa nunca lleva texto encima ni se usa como texto: es velo,
+       resplandor, borde de hover. --rosa-humo y --linea son las líneas.
+     · --lila vive en grafismos (iconos, filetes) y en tipografía grande;
+       a 3.9:1 no se usa para texto pequeño.
      ============================================================ */
   :root{
-    /* Superficies, de la más clara a la más saturada */
-    --porcelain:#fffcfd;    /* fondo base, blanco con un punto de rosa */
-    --blush:#fbeff4;        /* franjas y bloques alternos */
-    --blush-deep:#f4e0ea;   /* superficie acentuada / estados hover */
-
-    /* Tintas */
-    --ink:#2b1025;          /* ciruela casi negra: titulares y texto principal */
-    --ink-soft:#4a2340;     /* ciruela media */
-    --ink-dim:#7b6070;      /* malva: texto secundario (5.6:1 sobre porcelain) */
-
-    /* Acentos */
-    --rose:#d2547b;         /* rosa protagonista */
-    --rose-deep:#9e2748;    /* vino: el toque de rojo, apto para texto pequeño */
-    --orchid:#8b4f9c;       /* morado */
-
-    /* Líneas */
-    --line:rgba(139,79,156,0.20);
-    --line-strong:rgba(139,79,156,0.45);
+    --lienzo:     #FBF5F5;  /* fondo principal, blanco rosado */
+    --nube:       #F2E4E8;  /* fondo de secciones alternas */
+    --tinta:      #2C1A25;  /* texto principal, ciruela casi negra */
+    --tinta-suave:#6B5058;  /* texto secundario */
+    --ciruela:    #5C2A4F;  /* morado profundo: títulos y acentos */
+    --lila:       #9C6BAA;  /* morado medio */
+    --rosa:       #E7A2B6;  /* rosa cuarzo */
+    --rosa-humo:  #D9BFC6;  /* rosa apagado para líneas y bordes */
+    --carmin:     #C0304A;  /* rojo: solo para el acento más importante */
+    --linea:      rgba(92,42,79,.18);
   }
 
   *{ box-sizing:border-box; }
@@ -68,19 +69,19 @@
 
   body{
     margin:0;
-    background:var(--porcelain);
-    color:var(--ink);
+    background:var(--lienzo);
+    color:var(--tinta);
     font-family:'Jost', sans-serif;
     font-weight:300;
     overflow-x:hidden;
   }
 
-  ::selection{ background:var(--rose); color:var(--porcelain); }
+  ::selection{ background:var(--rosa); color:var(--tinta); }
 
   a{ color:inherit; text-decoration:none; }
 
   :focus-visible{
-    outline:2px solid var(--orchid);
+    outline:2px solid var(--ciruela);
     outline-offset:3px;
     border-radius:2px;
   }
@@ -90,7 +91,7 @@
     letter-spacing:0.35em;
     text-transform:uppercase;
     font-size:11px;
-    color:var(--rose-deep);
+    color:var(--ciruela);
     font-weight:500;
   }
 
@@ -101,7 +102,7 @@
     display:flex;
     align-items:flex-end;
     overflow:hidden;
-    background:var(--blush);
+    background:var(--nube);
   }
 
   .hero-img{
@@ -116,22 +117,24 @@
   }
 
   /* Velo claro: la foto se disuelve en el fondo de la página en lugar
-     de cortarse contra él, y el texto queda sobre superficie luminosa. */
+     de cortarse contra él, y el texto queda sobre superficie luminosa.
+     El paso intermedio va teñido de --nube para que el velo se lea como
+     rosa y no como un blanco lavado. */
   .hero::before{
     content:"";
     position:absolute;
     inset:0;
     background:
       linear-gradient(180deg,
-        rgba(255,252,253,0) 0%,
-        rgba(255,252,253,0.06) 34%,
-        rgba(251,239,244,0.78) 56%,
-        rgba(255,252,253,0.95) 74%,
-        var(--porcelain) 90%),
+        rgba(251,245,245,0) 0%,
+        rgba(251,245,245,0.06) 34%,
+        rgba(242,228,232,0.80) 56%,
+        rgba(251,245,245,0.95) 74%,
+        var(--lienzo) 90%),
       linear-gradient(90deg,
-        rgba(255,252,253,0.70) 0%,
-        rgba(251,239,244,0.22) 40%,
-        rgba(255,252,253,0) 72%);
+        rgba(251,245,245,0.70) 0%,
+        rgba(242,228,232,0.24) 40%,
+        rgba(251,245,245,0) 72%);
     z-index:1;
   }
 
@@ -155,8 +158,8 @@
 
   .brand-mark .dot{
     width:6px; height:6px; border-radius:50%;
-    background:var(--rose);
-    box-shadow:0 0 10px rgba(210,84,123,0.75);
+    background:var(--lila);
+    box-shadow:0 0 10px rgba(231,162,182,0.9);
   }
 
   h1.name{
@@ -166,7 +169,7 @@
     font-size:clamp(3.2rem, 11vw, 6.8rem);
     line-height:0.95;
     margin:0 0 10px;
-    color:var(--ink);
+    color:var(--tinta);
     letter-spacing:0.01em;
   }
   .js h1.name{
@@ -178,11 +181,11 @@
      texto transparente sin degradado detrás. */
   h1.name em{
     font-style:italic;
-    color:var(--orchid);
+    color:var(--ciruela);
   }
   @supports ((-webkit-background-clip:text) or (background-clip:text)){
     h1.name em{
-      background:linear-gradient(100deg, var(--rose), var(--orchid) 50%, var(--rose-deep));
+      background:linear-gradient(100deg, var(--lila), var(--ciruela) 55%, var(--lila));
       background-size:220% 100%;
       -webkit-background-clip:text;
       background-clip:text;
@@ -195,7 +198,7 @@
     font-size:clamp(0.85rem, 1.6vw, 1.05rem);
     letter-spacing:0.28em;
     text-transform:uppercase;
-    color:var(--ink-dim);
+    color:var(--tinta-suave);
     font-weight:400;
     max-width:520px;
   }
@@ -217,11 +220,11 @@
   }
   .scroll-cue .line{
     width:1px; height:46px;
-    background:linear-gradient(var(--rose), transparent);
+    background:linear-gradient(var(--lila), transparent);
     animation:pulseLine 2.2s ease-in-out infinite;
   }
   .scroll-cue span{
-    font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--ink-dim);
+    font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--tinta-suave);
     writing-mode:vertical-rl;
   }
 
@@ -243,9 +246,9 @@
     position:relative;
     padding:9rem 6vw 6rem;
     background:
-      radial-gradient(circle at 88% 2%, rgba(210,84,123,0.13), transparent 46%),
-      radial-gradient(circle at 4% 78%, rgba(139,79,156,0.10), transparent 42%),
-      var(--porcelain);
+      radial-gradient(circle at 88% 2%, rgba(231,162,182,0.38), transparent 46%),
+      radial-gradient(circle at 4% 78%, rgba(156,107,170,0.14), transparent 42%),
+      var(--lienzo);
   }
 
   .section-head{
@@ -255,7 +258,7 @@
     flex-wrap:wrap;
     gap:1rem;
     margin-bottom:4.5rem;
-    border-bottom:1px solid var(--line-strong);
+    border-bottom:1px solid var(--rosa-humo);
     padding-bottom:2rem;
   }
 
@@ -264,7 +267,7 @@
     font-weight:500;
     font-size:clamp(2.2rem, 5vw, 3.4rem);
     margin:0.4rem 0 0;
-    color:var(--ink);
+    color:var(--tinta);
   }
 
   .service-list{
@@ -282,7 +285,7 @@
     align-items:center;
     gap:2rem;
     padding:2.1rem 0;
-    border-bottom:1px solid var(--line);
+    border-bottom:1px solid var(--linea);
     transition:opacity 0.7s ease, transform 0.7s ease, border-color 0.3s ease, background 0.3s ease;
   }
   .js .service-item{
@@ -294,7 +297,7 @@
   .service-item .icon{
     width:44px; height:44px;
     display:flex; align-items:center; justify-content:center;
-    color:var(--orchid);
+    color:var(--lila);
     transition:color 0.3s ease;
   }
   .service-item .icon svg{ width:100%; height:100%; }
@@ -304,14 +307,14 @@
     font-weight:500;
     font-size:clamp(1.5rem, 3vw, 2.1rem);
     margin:0 0 0.35rem;
-    color:var(--ink);
+    color:var(--tinta);
     transition:color 0.3s ease, transform 0.3s ease;
   }
 
   .service-item p{
     margin:0;
     font-size:0.92rem;
-    color:var(--ink-dim);
+    color:var(--tinta-suave);
     max-width:46ch;
     font-weight:300;
   }
@@ -319,7 +322,7 @@
   .service-item .arrow{
     font-family:'Cormorant Garamond', serif;
     font-size:2.2rem;
-    color:var(--rose);
+    color:var(--lila);
     opacity:0;
     transform:translateX(-8px);
     transition:opacity 0.35s ease, transform 0.35s ease;
@@ -338,47 +341,47 @@
     gap:0.9rem;
     align-items:baseline;
     padding-left:1rem;
-    border-left:1px solid var(--line-strong);
+    border-left:1px solid var(--rosa-humo);
   }
   .sub-menu .sub-name{
     font-family:'Cormorant Garamond', serif;
     font-style:italic;
     font-size:1.05rem;
-    color:var(--orchid);
+    color:var(--ciruela);
     white-space:nowrap;
   }
   .sub-menu .sub-desc{
     font-size:0.88rem;
-    color:var(--ink-dim);
+    color:var(--tinta-suave);
     font-weight:300;
   }
 
   .service-item:hover{
-    border-color:var(--rose);
-    background:linear-gradient(90deg, var(--blush-deep), rgba(244,224,234,0) 55%);
+    border-color:var(--rosa);
+    background:linear-gradient(90deg, rgba(231,162,182,0.32), rgba(231,162,182,0) 55%);
   }
-  .service-item:hover h3{ color:var(--rose-deep); transform:translateX(6px); }
-  .service-item:hover .icon{ color:var(--rose); }
+  .service-item:hover h3{ color:var(--ciruela); transform:translateX(6px); }
+  .service-item:hover .icon{ color:var(--ciruela); }
   .service-item:hover .arrow{ opacity:1; transform:translateX(0); }
 
   /* ---------- FRANJA / CITA ---------- */
   .strip{
     padding:5rem 6vw;
     text-align:center;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    background:var(--blush);
+    border-top:1px solid var(--linea);
+    border-bottom:1px solid var(--linea);
+    background:var(--nube);
   }
   .strip p{
     font-family:'Cormorant Garamond', serif;
     font-style:italic;
     font-size:clamp(1.3rem, 3vw, 2rem);
-    color:var(--ink-soft);
+    color:var(--tinta);
     max-width:720px;
     margin:0 auto;
     line-height:1.5;
   }
-  .strip p .g{ color:var(--rose-deep); }
+  .strip p .g{ color:var(--ciruela); }
 
   /* ---------- CTA ---------- */
   .cta{
@@ -386,14 +389,14 @@
     padding:8rem 6vw 9rem;
     text-align:center;
     overflow:hidden;
-    background:var(--porcelain);
+    background:var(--lienzo);
   }
   .cta::before{
     content:"";
     position:absolute; inset:0;
     background:
-      radial-gradient(circle at 50% 18%, rgba(210,84,123,0.16), transparent 55%),
-      radial-gradient(circle at 78% 88%, rgba(139,79,156,0.12), transparent 50%);
+      radial-gradient(circle at 50% 18%, rgba(231,162,182,0.42), transparent 55%),
+      radial-gradient(circle at 78% 88%, rgba(156,107,170,0.16), transparent 50%);
   }
   .cta-inner{ position:relative; z-index:1; max-width:640px; margin:0 auto; }
 
@@ -402,22 +405,23 @@
     font-weight:500;
     font-size:clamp(2.4rem, 6vw, 3.8rem);
     margin:0.6rem 0 1rem;
-    color:var(--ink);
+    color:var(--tinta);
   }
   .cta p.sub{
-    color:var(--ink-dim);
+    color:var(--tinta-suave);
     font-size:0.98rem;
     margin-bottom:2.6rem;
     letter-spacing:0.02em;
   }
 
+  /* --carmin, aquí y solo aquí: es la acción principal del sitio. */
   .btn-book{
     display:inline-flex;
     align-items:center;
     gap:12px;
     padding:1.15rem 2.6rem;
-    background:linear-gradient(100deg, var(--rose-deep), var(--orchid));
-    color:var(--porcelain);
+    background:linear-gradient(100deg, var(--carmin), var(--ciruela));
+    color:var(--lienzo);
     font-family:'Jost', sans-serif;
     font-weight:500;
     letter-spacing:0.12em;
@@ -427,12 +431,12 @@
     border:none;
     cursor:pointer;
     transition:transform 0.35s cubic-bezier(.16,1,.3,1), box-shadow 0.35s ease, filter 0.35s ease;
-    box-shadow:0 10px 30px -10px rgba(158,39,72,0.55);
+    box-shadow:0 10px 30px -10px rgba(192,48,74,0.55);
   }
   .btn-book:hover{
     transform:translateY(-3px);
-    filter:saturate(1.1) brightness(1.06);
-    box-shadow:0 16px 40px -12px rgba(139,79,156,0.6);
+    filter:saturate(1.08) brightness(1.06);
+    box-shadow:0 16px 40px -12px rgba(92,42,79,0.55);
   }
   .btn-book svg{ width:18px; height:18px; }
 
@@ -440,9 +444,9 @@
     margin-top:1.6rem;
     font-size:0.85rem;
     letter-spacing:0.15em;
-    color:var(--ink-dim);
+    color:var(--tinta-suave);
   }
-  .phone-line strong{ color:var(--rose-deep); font-weight:500; }
+  .phone-line strong{ color:var(--carmin); font-weight:500; }
 
   .ig-link{
     margin-top:1.4rem;
@@ -451,12 +455,12 @@
     gap:9px;
     font-size:1.15rem;
     letter-spacing:0.04em;
-    color:var(--ink-dim);
+    color:var(--tinta-suave);
     border-bottom:1px solid transparent;
     transition:color 0.3s ease, border-color 0.3s ease;
   }
   .ig-link svg{ width:20px; height:20px; }
-  .ig-link:hover{ color:var(--orchid); border-color:var(--orchid); }
+  .ig-link:hover{ color:var(--ciruela); border-color:var(--rosa); }
 
   footer{
     padding:2rem 6vw;
@@ -464,17 +468,17 @@
     font-size:11px;
     letter-spacing:0.2em;
     text-transform:uppercase;
-    color:var(--ink-dim);
-    background:var(--blush);
-    border-top:1px solid var(--line);
+    color:var(--tinta-suave);
+    background:var(--nube);
+    border-top:1px solid var(--linea);
   }
   footer a{
-    color:var(--rose-deep);
+    color:var(--ciruela);
     transition:color 0.3s ease;
   }
-  footer a:hover{ color:var(--orchid); }
+  footer a:hover{ color:var(--lila); }
 
-  /* CTA flotante */
+  /* CTA flotante — mismo acento que el botón principal: es la misma acción. */
   .float-cta{
     position:fixed;
     right:22px;
@@ -484,20 +488,20 @@
     align-items:center;
     gap:10px;
     padding:0.85rem 1.3rem;
-    background:linear-gradient(100deg, var(--rose-deep), var(--orchid));
-    color:var(--porcelain);
+    background:linear-gradient(100deg, var(--carmin), var(--ciruela));
+    color:var(--lienzo);
     font-size:0.78rem;
     letter-spacing:0.1em;
     text-transform:uppercase;
     border-radius:999px;
-    box-shadow:0 12px 28px -8px rgba(74,35,64,0.45);
+    box-shadow:0 12px 28px -8px rgba(44,26,37,0.4);
     opacity:0;
     transform:translateY(16px);
     transition:opacity 0.5s ease, transform 0.5s ease, filter 0.3s ease;
     pointer-events:none;
   }
   .float-cta.show{ opacity:1; transform:translateY(0); pointer-events:auto; }
-  .float-cta:hover{ filter:saturate(1.1) brightness(1.08); }
+  .float-cta:hover{ filter:saturate(1.08) brightness(1.08); }
   .float-cta svg{ width:16px; height:16px; }
 
   @media (max-width:640px){
