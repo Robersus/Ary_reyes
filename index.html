@@ -532,6 +532,187 @@
     /* .float-cta se queda fuera a propósito: su visibilidad la controla la
        clase .show desde JS (opacity:1), no una transición. */
   }
+
+  /* ---------- TRANSFERENCIA ---------- */
+
+.transfer-section{
+  margin-top:2rem;
+  text-align:center;
+}
+
+.transfer-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  padding:0.85rem 1.4rem;
+  background:transparent;
+  color:var(--ciruela);
+  border:1px solid var(--rosa-humo);
+  font-family:'Jost', sans-serif;
+  font-size:0.78rem;
+  font-weight:500;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.transfer-btn:hover{
+  background:rgba(231,162,182,0.16);
+  border-color:var(--rosa);
+  transform:translateY(-2px);
+}
+
+.transfer-plus{
+  font-size:1.2rem;
+  line-height:1;
+  font-weight:300;
+}
+
+.transfer-panel{
+  max-width:620px;
+  margin:1.5rem auto 0;
+  padding:1.8rem;
+  text-align:left;
+  background:rgba(242,228,232,0.62);
+  border:1px solid var(--rosa-humo);
+  animation:transferIn 0.35s ease forwards;
+}
+
+.transfer-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding-bottom:1rem;
+  border-bottom:1px solid var(--linea);
+}
+
+.transfer-close{
+  border:0;
+  background:transparent;
+  color:var(--tinta-suave);
+  font-size:1.6rem;
+  line-height:1;
+  cursor:pointer;
+  padding:4px 8px;
+}
+
+.transfer-close:hover{
+  color:var(--ciruela);
+}
+
+.transfer-data{
+  margin-top:1rem;
+}
+
+.transfer-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:1rem 0;
+  border-bottom:1px solid var(--linea);
+}
+
+.transfer-row small{
+  display:block;
+  margin-bottom:0.25rem;
+  color:var(--tinta-suave);
+  font-size:0.7rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+}
+
+.transfer-row strong{
+  display:block;
+  color:var(--tinta);
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.25rem;
+  font-weight:500;
+}
+
+.transfer-row .clabe{
+  font-family:'Jost', sans-serif;
+  font-size:0.95rem;
+  letter-spacing:0.04em;
+}
+
+.copy-btn{
+  flex-shrink:0;
+  padding:0.55rem 0.9rem;
+  border:1px solid var(--rosa-humo);
+  background:var(--lienzo);
+  color:var(--ciruela);
+  font-family:'Jost', sans-serif;
+  font-size:0.7rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.copy-btn:hover{
+  background:var(--ciruela);
+  color:var(--lienzo);
+  border-color:var(--ciruela);
+}
+
+.copy-btn.copied{
+  background:var(--ciruela);
+  color:var(--lienzo);
+  border-color:var(--ciruela);
+}
+
+.transfer-note{
+  margin:1.2rem 0 0;
+  color:var(--tinta-suave);
+  font-size:0.8rem;
+  line-height:1.5;
+  text-align:center;
+}
+
+@keyframes transferIn{
+  from{
+    opacity:0;
+    transform:translateY(-8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@media (max-width:640px){
+
+  .transfer-panel{
+    padding:1.3rem;
+  }
+
+  .transfer-row{
+    align-items:flex-end;
+  }
+
+  .transfer-row strong{
+    font-size:1.1rem;
+  }
+
+  .transfer-row .clabe{
+    font-size:0.82rem;
+    letter-spacing:0.02em;
+  }
+
+  .copy-btn{
+    padding:0.5rem 0.7rem;
+  }
+}
 </style>
 
 <script type="application/ld+json">
@@ -781,6 +962,56 @@
     });
   }, { threshold: 0.2 });
   items.forEach(item => revealObserver.observe(item));
+
+  // ---------- DATOS DE TRANSFERENCIA ----------
+
+const transferBtn = document.getElementById('transferBtn');
+const transferPanel = document.getElementById('transferPanel');
+const transferClose = document.getElementById('transferClose');
+
+transferBtn.addEventListener('click', () => {
+  const isOpen = !transferPanel.hidden;
+  transferPanel.hidden = isOpen;
+  transferBtn.querySelector('.transfer-plus').textContent = isOpen ? '+' : '−';
+});
+
+transferClose.addEventListener('click', () => {
+  transferPanel.hidden = true;
+  transferBtn.querySelector('.transfer-plus').textContent = '+';
+});
+
+document.querySelectorAll('.copy-btn').forEach(button => {
+  button.addEventListener('click', async () => {
+    const text = button.dataset.copy;
+
+    try {
+      await navigator.clipboard.writeText(text);
+
+      const originalText = button.textContent;
+      button.textContent = '¡Copiado!';
+      button.classList.add('copied');
+
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.classList.remove('copied');
+      }, 1600);
+
+    } catch (error) {
+      const input = document.createElement('input');
+      input.value = text;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      input.remove();
+
+      button.textContent = '¡Copiado!';
+
+      setTimeout(() => {
+        button.textContent = 'Copiar';
+      }, 1600);
+    }
+  });
+});
 </script>
 
 </body>
